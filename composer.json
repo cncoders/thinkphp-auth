@@ -1,0 +1,20 @@
+{
+	"name": "cncoders/thinkphp-auth",
+	"description": "a simple api auth with thinkphp6",
+	"homepage": "https://github.com/cncoders/thinkphp-auth.git",
+	"license": "MIT",
+	"keywords": ["auth", "thinkphp", "tp", "tp6", "php"],
+	"authors": [
+		{
+			"name": "fuwei",
+			"email": "542928955@qq.com"
+		}
+	],
+	"require": {
+		"php": ">=5.6"
+	},
+	"type": "library",
+	"autoload": {
+		"psr-4": {"cncoders\\auth\\": "src"}
+	}
+}
