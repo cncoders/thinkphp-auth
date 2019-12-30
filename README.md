@@ -39,37 +39,16 @@ use \think\facade\Route;
 $version = \think\facade\Request::header('version');
 
 //实例化auth-api
-$api = new \cncoders\auth\Api($version);
+$router = new \cncoders\auth\Router($version);
 
-//不需要通过JWT鉴权
-$api->route('', '', function(){
+$router->allows(['[<]1.0.0'])->includes(__DIR__ . '/version1/router.php');
 
-    //登录 获取TOKEN
-    Route::post('login', '/user/login');
-
-    //刷新TOKEN
-    Route::post('refreshToken', '/user/refreshToken');
+$router->allows('[>=]1.0.1')->callback(function(){
+    Route::rule('/auth', '/auth/index');
 });
 
-//v1旧版本接口
-$api->route('v1', 'content', function(){
-
-    Route::post('show', '/content/show_v1');
-
-});
-
-//v2新版接口
-$api->route('v2', 'content', function(){
-    //...
-    Route::post('show', '/content/show_v2');
-});
-
-//需要进行TOKEN校验的接口
-$api->routeWithAuther(['v1', 'v2'], '', function(){
-
-    //用户中心需要经过TOKEN鉴权校验
-    Route::post('center', '/user/center');
-
+$router->boot('1.0.2', function(){
+    Route::group(...);
 });
 
 ```
