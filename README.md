@@ -27,7 +27,9 @@ if ($e instanceof AutherException) {
 
 ### 4.使用示例：
 
-路由使用
+路由使用 单独使用版本判断可以不用配置jwt
+
+版本判断不支持路由缓存
 
 ```
 
@@ -41,6 +43,7 @@ $version = \think\facade\Request::header('version');
 //实例化auth-api
 $router = new \cncoders\auth\Router($version);
 
+#包含的路由文件 必须放到非route目录下 可以市下面的其他目录内 会与TP内置的route冲突
 $router->allows(['[<]1.0.0'])->includes(__DIR__ . '/version1/router.php');
 
 $router->allows('[>=]1.0.1')->callback(function(){
@@ -52,7 +55,7 @@ $router->boot('1.0.2', function(){
 });
 
 ```
-单独使用auther
+auther使用
 
 ```
 Auther::make()->token(); //生成TOKEN
